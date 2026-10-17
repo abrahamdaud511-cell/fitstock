@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #050607;
+  --color-surface: #0c0f12;
+  --color-surface-2: #12171c;
+  --color-surface-3: #181f26;
+  --color-fg: #d7e0d8;
+  --color-muted: #7b857c;
+  --color-faint: #4e5750;
+  --color-accent: #3ddc7a;
+  --color-accent-dim: #163525;
+  --color-danger: #e25b4a;
+  --color-danger-dim: #3a1814;
+  --color-warn: #c4a35a;
+  --color-border: #1e262c;
+  --color-border-strong: #2c3840;
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+  --radius-xl: 14px;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+  }
+
+  body {
+    font-family: var(--font-mono);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.panel {
+  position: relative;
+  background: var(--color-surface);
+  box-shadow: 0 0 0 1px var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.panel::before,
+.panel::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  pointer-events: none;
+  border-color: var(--color-accent);
+  opacity: 0.45;
+}
+
+.panel::before {
+  top: 0;
+  left: 0;
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.panel::after {
+  bottom: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.tick-scan {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0 2px,
+    rgb(5 6 7 / 0.18) 2px 3px
+  );
+  pointer-events: none;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.resize-handle {
+  position: relative;
+  flex: 0 0 6px;
+  background: transparent;
+}
+
+.resize-handle::after {
+  content: "";
+  position: absolute;
+  background: var(--color-border);
+  opacity: 0.9;
+}
+
+[data-separator][data-orientation="horizontal"].resize-handle::after,
+.resize-handle[data-orientation="horizontal"]::after {
+  height: 1px;
+  left: 0;
+  right: 0;
+  top: 2px;
+}
+
+[data-separator][data-orientation="vertical"].resize-handle::after,
+.resize-handle[data-orientation="vertical"]::after {
+  width: 1px;
+  top: 0;
+  bottom: 0;
+  left: 2px;
+}
+
+.resize-handle:hover::after {
+  background: var(--color-accent);
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--color-fg) 8%, transparent),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-strong);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
